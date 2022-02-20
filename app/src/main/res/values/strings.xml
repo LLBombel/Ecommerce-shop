@@ -33,5 +33,18 @@
     <string name="cena">Cena</string>
     <string name="ilosc">Ilość</string>
     <string name="opis">Opis</string>
+    <string name="error_loading_image">Nie udało się załadować zdjęcia</string>
+    <string name="no_product_image">Nie wybrano zdjęcia</string>
+    <string name="no_product_name">Proszę wprowadzić nazwę produktu</string>
+    <string name="no_product_price">Proszę wprowadzić cenę produktu</string>
+    <string name="no_product_amount">Proszę wprowadzić ilość produktu</string>
+    <string name="no_product_description">Proszę wprowadzić opis produktu</string>
+    <string name="permission_denied">Odmówiono pozwolenia</string>
+    <string name="no_phone_number">Prosze wprowadzić numer telefonu</string>
+    <string name="profile_updated">Profil zaktualizowany</string>
+    <string name="product_added">Produkt dodany</string>
+    <string name="no_added_products">Brak dodanych produktów</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

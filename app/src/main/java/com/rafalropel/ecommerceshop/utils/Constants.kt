@@ -20,6 +20,9 @@ object Constants {
     const val PROFILE_IMAGE: String = "profile_image"
     const val IMAGE: String = "image"
     const val COMPLETE_PROFILE: String = "profileCompleted"
+    const val PRODUCT_IMAGE: String = "Product_Image"
+    const val PRODUCTS: String = "products"
+    const val USER_ID: String = "user_id"
 
 
     fun imageChooser(activity: Activity) {
@@ -27,7 +30,7 @@ object Constants {
         activity.startActivityForResult(gallery, IMAGE_REQUEST_CODE)
     }
 
-    fun getFileExtension(activity: Activity, uri: Uri?): String?{
+    fun getFileExtension(activity: Activity, uri: Uri?): String? {
         return MimeTypeMap.getSingleton()
             .getExtensionFromMimeType(activity.contentResolver.getType(uri!!))
 

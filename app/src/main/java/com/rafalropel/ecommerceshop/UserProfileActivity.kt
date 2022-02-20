@@ -82,7 +82,7 @@ class UserProfileActivity : BaseActivity() {
 
             if (validateUserProfileDetails()) {
                 if (mSelectedImageFileUri != null) {
-                    FireStoreClass().uploadImage(this, mSelectedImageFileUri)
+                    FireStoreClass().uploadImage(this, mSelectedImageFileUri, Constants.PROFILE_IMAGE)
                 } else {
                     updateUserDetails()
                 }
@@ -123,7 +123,7 @@ class UserProfileActivity : BaseActivity() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Constants.imageChooser(this)
             } else {
-                showErrorSnackBar("Odmówiono pozwolenia", true)
+                showErrorSnackBar(getString(R.string.permission_denied), true)
             }
         }
     }
@@ -140,7 +140,7 @@ class UserProfileActivity : BaseActivity() {
                         e.printStackTrace()
                         Toast.makeText(
                             this@UserProfileActivity,
-                            "Nie udało się załadować zdjęcia",
+                            getString(R.string.error_loading_image),
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -152,7 +152,7 @@ class UserProfileActivity : BaseActivity() {
     private fun validateUserProfileDetails(): Boolean {
         return when {
             TextUtils.isEmpty(binding.etProfilePhone.text.toString().trim { it <= ' ' }) -> {
-                showErrorSnackBar("Prosze wprowadzić numer telefonu", true)
+                showErrorSnackBar(getString(R.string.no_phone_number), true)
                 false
             }
             else -> {
@@ -162,7 +162,7 @@ class UserProfileActivity : BaseActivity() {
     }
 
     fun userProfileUpdateSuccess() {
-        Toast.makeText(this, "Profil zaktualizowany", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.profile_updated), Toast.LENGTH_SHORT).show()
         startActivity(Intent(this, DashboardActivity::class.java))
         finish()
     }

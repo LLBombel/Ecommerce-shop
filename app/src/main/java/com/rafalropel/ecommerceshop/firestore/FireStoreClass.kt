@@ -5,16 +5,16 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
+import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.rafalropel.ecommerceshop.LoginActivity
-import com.rafalropel.ecommerceshop.RegisterActivity
-import com.rafalropel.ecommerceshop.SettingsActivity
-import com.rafalropel.ecommerceshop.UserProfileActivity
+import com.rafalropel.ecommerceshop.*
+import com.rafalropel.ecommerceshop.model.Product
 import com.rafalropel.ecommerceshop.model.User
+import com.rafalropel.ecommerceshop.ui.dashboard.ProductsFragment
 import com.rafalropel.ecommerceshop.utils.Constants
 
 class FireStoreClass {
@@ -28,7 +28,7 @@ class FireStoreClass {
             .addOnSuccessListener {
                 activity.registrationSuccess()
             }
-            .addOnFailureListener { e ->
+            .addOnFailureListener {
                 Log.e(activity.javaClass.simpleName, "Błąd")
             }
     }
@@ -60,7 +60,7 @@ class FireStoreClass {
 
                 val editor: SharedPreferences.Editor = sharedPreferences.edit()
                 editor.putString(
-                    Constants.LOGGED_IN_USERNAME, "${user.nameSurname}"
+                    Constants.LOGGED_IN_USERNAME, user.nameSurname
                 )
                 editor.apply()
 
@@ -69,7 +69,7 @@ class FireStoreClass {
                         activity.logInSuccess(user)
                     }
 
-                    is SettingsActivity ->{
+                    is SettingsActivity -> {
                         activity.userDetailsSuccess(user)
 
                     }
@@ -98,11 +98,11 @@ class FireStoreClass {
 
     }
 
-    fun uploadImage(activity: Activity, imageFileURI: Uri?) {
+    fun uploadImage(activity: Activity, imageFileURI: Uri?, imageType: String) {
 
 
         val sRef: StorageReference = FirebaseStorage.getInstance().reference.child(
-            Constants.PROFILE_IMAGE + System.currentTimeMillis() + "."
+            imageType + System.currentTimeMillis() + "."
                     + Constants.getFileExtension(
                 activity,
                 imageFileURI
@@ -123,9 +123,14 @@ class FireStoreClass {
                 taskSnapshot.metadata!!.reference!!.downloadUrl
                     .addOnSuccessListener { uri ->
                         Log.e("Downloadable Image URL", uri.toString())
-                        when(activity){
-                            is UserProfileActivity ->{
+                        when (activity) {
+                            is UserProfileActivity -> {
                                 activity.imageUploadSuccess(uri.toString())
+                            }
+
+                            is AddProductActivity -> {
+                                activity.imageUploadSuccess(uri.toString())
+
                             }
                         }
 
@@ -139,6 +144,43 @@ class FireStoreClass {
                     exception.message,
                     exception
                 )
+            }
+    }
+
+    fun uploadProduct(activity: AddProductActivity, productInfo: Product) {
+        mFireStore.collection(Constants.PRODUCTS)
+            .document()
+            .set(productInfo, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.productUploadSuccess()
+            }
+            .addOnFailureListener {
+                Log.e(activity.javaClass.simpleName, "Błąd")
+            }
+    }
+
+    fun getProductsList(fragment: Fragment) {
+        mFireStore.collection(Constants.PRODUCTS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get()
+            .addOnSuccessListener { document ->
+                Log.e("Products", document.documents.toString())
+
+                val productsList: ArrayList<Product> = ArrayList()
+                for (i in document.documents) {
+                    val product = i.toObject(Product::class.java)
+                    product!!.product_id = i.id
+
+                    productsList.add(product)
+
+
+                }
+                when(fragment){
+                    is ProductsFragment ->{
+                        fragment.getProductsListSuccess(productsList)
+                    }
+                }
+
             }
     }
 
