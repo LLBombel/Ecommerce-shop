@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "799982488138",
+    "project_id": "ecommerce-shop-bd263",
+    "storage_bucket": "ecommerce-shop-bd263.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:799982488138:android:a1cb3f24b483f74296b4b3",
+        "android_client_info": {
+          "package_name": "com.rafalropel.ecommerceshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "799982488138-h8odd00rpveoaoet7vc7hl1eo9bqnqog.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rafalropel.ecommerceshop",
+            "certificate_hash": "b537e6ed6731c7d5ab57577dec2514f313d8b514"
+          }
+        },
+        {
+          "client_id": "799982488138-belssknpbkjg1en7fjrg7g2s7tagat8f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPuJCZ1WgmYA9LJTzng5GuEPnkCXIFBiY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "799982488138-belssknpbkjg1en7fjrg7g2s7tagat8f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

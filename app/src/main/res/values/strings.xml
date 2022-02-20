@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Ecommerce shop</string>
+    <string name="SplashTitle">Shoppolandia</string>
+    <string name="logowanie">Logowanie</string>
+    <string name="e_mail">E-mail</string>
+    <string name="haslo">Hasło</string>
+    <string name="zaloguj_sie">Zaloguj się</string>
+    <string name="nie_pami_tam_has_a"><u>Nie pamiętam hasła</u></string>
+    <string name="brak_konta_">Brak konta? <u>Kliknij i stwórz konto</u></string>
+    <string name="rejestracja">Rejestracja</string>
+    <string name="imi_i_nazwisko">Imię i nazwisko</string>
+    <string name="potwierd_has_o">Potwierdź hasło</string>
+    <string name="zarejestruj_si">Zarejestruj się</string>
+    <string name="posiadasz_konto_zaloguj_si">Posiadasz konto? <u>Zaloguj się</u></string>
+    <string name="prosz_czeka">Proszę czekać</string>
+    <string name="odzyskiwanie_has_a">Odzyskiwanie hasła</string>
+    <string name="wy_lij">Wyślij</string>
+    <string name="profil">Profil</string>
+    <string name="numer_telefonu">Numer telefonu</string>
+    <string name="zapisz">Zapisz</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_home">Strona główna</string>
+    <string name="title_products">Produkty</string>
+    <string name="title_orders">Zamówienia</string>
+    <string name="double_click">Naciśnij ponownie aby wyjść</string>
+    <string name="ustawienia">Ustawienia</string>
+    <string name="title_settings">Ustawienia</string>
+    <string name="lbl_edit">Edytuj</string>
+    <string name="lbl_addresses">Adresy</string>
+    <string name="btn_lbl_logout">Wyloguj</string>
+    <string name="dodaj_produkt">Dodaj produkt</string>
+    <string name="nazwa_produktu">Nazwa produktu</string>
+    <string name="cena">Cena</string>
+    <string name="ilosc">Ilość</string>
+    <string name="opis">Opis</string>
+
+</resources>

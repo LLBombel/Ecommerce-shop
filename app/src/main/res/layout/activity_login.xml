@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/bg2"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
+
+    <com.rafalropel.ecommerceshop.utils.TextViewBold
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:gravity="center"
+        android:text="@string/logowanie"
+        android:textColor="@color/PrimaryText"
+        android:textSize="@dimen/splash_text_size" />
+
+    <com.rafalropel.ecommerceshop.utils.CustomEditText
+        android:id="@+id/et_login_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:hint="@string/e_mail"
+        android:textSize="20sp" />
+
+    <com.rafalropel.ecommerceshop.utils.CustomEditText
+        android:id="@+id/et_login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:hint="@string/haslo"
+        android:inputType="textPassword"
+        android:textSize="20sp" />
+
+    <com.rafalropel.ecommerceshop.utils.CustomButton
+        android:id="@+id/bt_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/button_bg"
+        android:text="@string/zaloguj_sie"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_password_forgot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/nie_pami_tam_has_a"
+        android:textColor="@color/PrimaryText"
+        android:textSize="15sp" />
+
+    <com.rafalropel.ecommerceshop.utils.TextViewBold
+        android:id="@+id/tv_no_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:text="@string/brak_konta_"
+        android:textColor="@color/PrimaryText"
+        android:textSize="18sp" />
+
+</LinearLayout>
