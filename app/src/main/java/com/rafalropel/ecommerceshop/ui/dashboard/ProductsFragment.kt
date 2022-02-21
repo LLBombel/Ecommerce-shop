@@ -1,8 +1,10 @@
 package com.rafalropel.ecommerceshop.ui.dashboard
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rafalropel.ecommerceshop.AddProductActivity
@@ -66,7 +68,7 @@ class ProductsFragment : Fragment() {
 
             binding.rvProducts.layoutManager = LinearLayoutManager(activity)
             binding.rvProducts.setHasFixedSize(true)
-            val adapter = ProductsAdapter(requireActivity(), productsList)
+            val adapter = ProductsAdapter(requireActivity(), productsList, this)
             binding.rvProducts.adapter = adapter
         } else {
             binding.rvProducts.visibility = View.GONE
@@ -76,6 +78,34 @@ class ProductsFragment : Fragment() {
 
     private fun getProductsListFromFirestore() {
         FireStoreClass().getProductsList(this)
+    }
+
+    fun deleteProduct(productID: String) {
+        deleteProductDialog(productID)
+    }
+
+    fun deleteProductSuccess() {
+        Toast.makeText(requireActivity(), getString(R.string.product_deleted), Toast.LENGTH_SHORT).show()
+        getProductsListFromFirestore()
+    }
+
+    private fun deleteProductDialog(productID: String) {
+        val builder = AlertDialog.Builder(requireActivity())
+        builder.setTitle(getString(R.string.delete_product_dialog_title))
+        builder.setMessage(getString(R.string.delete_product_dialog_message))
+
+        builder.setPositiveButton(getString(R.string.yes)) { dialogInterface, _ ->
+            FireStoreClass().deleteProduct(this, productID)
+            dialogInterface.dismiss()
+        }
+        builder.setNegativeButton("Nie") { dialogInterface, _ ->
+            dialogInterface.dismiss()
+
+        }
+
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
     }
 
     override fun onResume() {

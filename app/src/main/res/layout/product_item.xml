@@ -27,13 +27,15 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_product_details"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/item_image_title_price_margin_start"
+        android:layout_marginEnd="@dimen/item_image_title_price_margin_start"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_delete_product"
         app:layout_constraintStart_toEndOf="@+id/ll_item_image"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -55,4 +57,17 @@
             tools:text="199.99 zł"/>
     </LinearLayout>
 
+    <ImageButton
+        android:id="@+id/btn_delete_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:foreground="?attr/selectableItemBackground"
+        android:padding="5dp"
+        android:src="@drawable/ic_delete"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ll_product_details"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

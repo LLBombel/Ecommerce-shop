@@ -47,5 +47,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_items_home">Brak pozycji</string>
+    <string name="delete_product_dialog_title">Usuwanie produktu</string>
+    <string name="delete_product_dialog_message">Czy na pewno usunąć produkt?</string>
+    <string name="yes">Tak</string>
+    <string name="product_deleted">Produkt został usunięty</string>
 
 </resources>

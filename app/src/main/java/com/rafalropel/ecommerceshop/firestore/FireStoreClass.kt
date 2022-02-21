@@ -212,4 +212,16 @@ class FireStoreClass {
             }
     }
 
+    fun deleteProduct(fragment: ProductsFragment, productID: String){
+        mFireStore.collection(Constants.PRODUCTS)
+            .document(productID)
+            .delete()
+            .addOnSuccessListener {
+                fragment.deleteProductSuccess()
+            }
+            .addOnFailureListener {
+                Log.e(fragment.requireActivity().javaClass.simpleName, "Błąd")
+            }
+    }
+
 }
