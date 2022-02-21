@@ -1,9 +1,11 @@
 package com.rafalropel.ecommerceshop.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.rafalropel.ecommerceshop.ProductDetailsActivity
 import com.rafalropel.ecommerceshop.databinding.ProductItemBinding
 import com.rafalropel.ecommerceshop.model.Product
 import com.rafalropel.ecommerceshop.ui.dashboard.ProductsFragment
@@ -26,6 +28,11 @@ class ProductsAdapter(private val context: Context, private var list: ArrayList<
         holder.tvItemPrice.text = item.price
         holder.btnDeleteProduct.setOnClickListener {
             fragment.deleteProduct(item.product_id)
+        }
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, ProductDetailsActivity::class.java)
+            context.startActivity(intent)
         }
 
     }
