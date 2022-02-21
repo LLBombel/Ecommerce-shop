@@ -2,11 +2,12 @@ package com.rafalropel.ecommerceshop.ui.dashboard
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.rafalropel.ecommerceshop.AddProductActivity
 import com.rafalropel.ecommerceshop.R
+import com.rafalropel.ecommerceshop.adapter.ProductsAdapter
 import com.rafalropel.ecommerceshop.databinding.FragmentProductsBinding
 import com.rafalropel.ecommerceshop.firestore.FireStoreClass
 import com.rafalropel.ecommerceshop.model.Product
@@ -58,12 +59,22 @@ class ProductsFragment : Fragment() {
     }
 
     fun getProductsListSuccess(productsList: ArrayList<Product>) {
-        for (i in productsList) {
-            Log.i("Product name", i.title)
+
+        if (productsList.size > 0) {
+            binding.rvProducts.visibility = View.VISIBLE
+            binding.noProductsAdded.visibility = View.GONE
+
+            binding.rvProducts.layoutManager = LinearLayoutManager(activity)
+            binding.rvProducts.setHasFixedSize(true)
+            val adapter = ProductsAdapter(requireActivity(), productsList)
+            binding.rvProducts.adapter = adapter
+        } else {
+            binding.rvProducts.visibility = View.GONE
+            binding.noProductsAdded.visibility = View.VISIBLE
         }
     }
 
-    private fun getProductsListFromFirestore(){
+    private fun getProductsListFromFirestore() {
         FireStoreClass().getProductsList(this)
     }
 
