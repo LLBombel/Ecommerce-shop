@@ -51,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/rv_item_price_margin_top"
             android:textColor="@color/PrimaryText"
+            android:textSize="@dimen/rv_item_price_text_size"
             tools:text="199.99 zł"/>
     </LinearLayout>
 

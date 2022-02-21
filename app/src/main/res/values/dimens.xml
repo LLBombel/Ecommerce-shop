@@ -34,9 +34,17 @@
     <dimen name="item_image_title_price_margin_start">10dp</dimen>
     <dimen name="rv_item_name_text_size">14sp</dimen>
     <dimen name="rv_item_price_margin_top">2dp</dimen>
-    <dimen name="rv_item_price_text_size">12dp</dimen>
+    <dimen name="rv_item_price_text_size">12sp</dimen>
 
-
+    <dimen name="item_home_margin">5dp</dimen>
+    <dimen name="item_home_padding">1dp</dimen>
+    <dimen name="item_home_image_height">150dp</dimen>
+    <dimen name="item_home_image_margin">10dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="item_home_paddingStartEnd">10dp</dimen>
+    <dimen name="item_home_paddingTopBottom">5dp</dimen>
+    <dimen name="item_home_textSize">12sp</dimen>
+    <dimen name="item_home_price_marginTop">2dp</dimen>
 
 
 </resources>

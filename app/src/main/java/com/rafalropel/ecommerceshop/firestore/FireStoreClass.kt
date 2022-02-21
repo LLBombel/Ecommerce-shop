@@ -15,6 +15,7 @@ import com.rafalropel.ecommerceshop.*
 import com.rafalropel.ecommerceshop.model.Product
 import com.rafalropel.ecommerceshop.model.User
 import com.rafalropel.ecommerceshop.ui.dashboard.ProductsFragment
+import com.rafalropel.ecommerceshop.ui.home.HomeFragment
 import com.rafalropel.ecommerceshop.utils.Constants
 
 class FireStoreClass {
@@ -175,12 +176,39 @@ class FireStoreClass {
 
 
                 }
-                when(fragment){
-                    is ProductsFragment ->{
+                when (fragment) {
+                    is ProductsFragment -> {
                         fragment.getProductsListSuccess(productsList)
                     }
                 }
 
+            }
+    }
+
+
+    fun getHomeItemsList(fragment: HomeFragment) {
+        mFireStore.collection(Constants.PRODUCTS)
+            .get()
+            .addOnSuccessListener { document ->
+                Log.e(fragment.javaClass.simpleName, document.documents.toString())
+
+                val productsList: ArrayList<Product> = ArrayList()
+
+                for(i in document.documents){
+                    val product = i.toObject(Product::class.java)!!
+                    product.product_id = i.id
+                    productsList.add(product)
+                }
+
+                when(fragment){
+                    is HomeFragment ->{
+                        fragment.getHomeItemsSuccess(productsList)
+                    }
+                }
+
+            }
+            .addOnFailureListener {
+                Log.e(fragment.javaClass.simpleName, "Błąd")
             }
     }
 

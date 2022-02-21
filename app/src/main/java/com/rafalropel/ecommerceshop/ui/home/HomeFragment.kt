@@ -3,12 +3,14 @@ package com.rafalropel.ecommerceshop.ui.home
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.rafalropel.ecommerceshop.R
 import com.rafalropel.ecommerceshop.SettingsActivity
+import com.rafalropel.ecommerceshop.adapter.ProductHomeAdapter
 import com.rafalropel.ecommerceshop.databinding.FragmentHomeBinding
+import com.rafalropel.ecommerceshop.firestore.FireStoreClass
+import com.rafalropel.ecommerceshop.model.Product
 
 class HomeFragment : Fragment() {
 
@@ -25,7 +27,6 @@ class HomeFragment : Fragment() {
     }
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,11 +37,14 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
 
-            textView.text = "Strona główna"
 
         return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getHomeItemsList()
     }
 
     override fun onDestroyView() {
@@ -57,12 +61,31 @@ class HomeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
 
-        when(id){
-            R.id.action_settings ->{
+        when (id) {
+            R.id.action_settings -> {
                 startActivity(Intent(activity, SettingsActivity::class.java))
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun getHomeItemsSuccess(homeItemsList: ArrayList<Product>) {
+        if (homeItemsList.size > 0) {
+            binding.tvNoItemsHome.visibility = View.GONE
+            binding.rvHome.visibility = View.VISIBLE
+
+            binding.rvHome.layoutManager = GridLayoutManager(activity, 2)
+            binding.rvHome.setHasFixedSize(true)
+            val adapter = ProductHomeAdapter(requireActivity(), homeItemsList)
+            binding.rvHome.adapter = adapter
+        } else {
+            binding.tvNoItemsHome.visibility = View.VISIBLE
+            binding.rvHome.visibility = View.GONE
+        }
+    }
+
+    private fun getHomeItemsList() {
+        FireStoreClass().getHomeItemsList(this@HomeFragment)
     }
 }
