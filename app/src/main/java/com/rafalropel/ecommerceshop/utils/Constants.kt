@@ -23,8 +23,11 @@ object Constants {
     const val PRODUCT_IMAGE: String = "Product_Image"
     const val PRODUCTS: String = "products"
     const val USER_ID: String = "user_id"
-    const val EXTRA_PRODUCT_ID = "extra_product_id"
-
+    const val EXTRA_PRODUCT_ID: String = "extra_product_id"
+    const val EXTRA_PRODUCT_OWNER_ID: String = "extra_product_owner_id"
+    const val DEFAULT_CART_QUANTITY: String = "1"
+    const val CART_ITEMS: String = "cart_items"
+    const val PRODUCT_ID: String = "product_id"
 
     fun imageChooser(activity: Activity) {
         val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)

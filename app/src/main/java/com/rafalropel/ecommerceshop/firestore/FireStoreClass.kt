@@ -12,6 +12,7 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.rafalropel.ecommerceshop.*
+import com.rafalropel.ecommerceshop.model.Cart
 import com.rafalropel.ecommerceshop.model.Product
 import com.rafalropel.ecommerceshop.model.User
 import com.rafalropel.ecommerceshop.ui.dashboard.ProductsFragment
@@ -232,6 +233,34 @@ class FireStoreClass {
                 val product = document.toObject(Product::class.java)
                 if(product != null) {
                     activity.productDetailsSuccess(product)
+                }
+
+            }
+            .addOnFailureListener {
+                Log.e(activity.javaClass.simpleName, "Błąd")
+            }
+    }
+
+    fun addCartItems(activity: ProductDetailsActivity, addToCart: Cart){
+        mFireStore.collection(Constants.CART_ITEMS)
+            .document()
+            .set(addToCart, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.addToCartSuccess()
+            }
+            .addOnFailureListener {
+                Log.e(activity.javaClass.simpleName, "Błąd")
+            }
+    }
+
+    fun checkIfItemExistInCart(activity: ProductDetailsActivity, productId: String){
+        mFireStore.collection(Constants.CART_ITEMS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .whereEqualTo(Constants.PRODUCT_ID, productId)
+            .get()
+            .addOnSuccessListener { document ->
+                if(document.documents.size > 0){
+                    activity.productExistInCart()
                 }
 
             }

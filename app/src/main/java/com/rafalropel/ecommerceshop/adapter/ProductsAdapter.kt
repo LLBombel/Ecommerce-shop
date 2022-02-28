@@ -34,6 +34,7 @@ class ProductsAdapter(private val context: Context, private var list: ArrayList<
         holder.itemView.setOnClickListener {
             val intent = Intent(context, ProductDetailsActivity::class.java)
             intent.putExtra(Constants.EXTRA_PRODUCT_ID, item.product_id)
+            intent.putExtra(Constants.EXTRA_PRODUCT_OWNER_ID, item.user_id)
             context.startActivity(intent)
         }
 

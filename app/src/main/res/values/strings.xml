@@ -52,6 +52,16 @@
     <string name="product_deleted">Produkt został usunięty</string>
     <string name="product_details_title">Szczegóły</string>
     <string name="product_description">Opis produktu</string>
-    <string name="product_amount">Ilość</string>
+    <string name="product_amount">Ilość</string>\
+    <string name="add_to_cart">Dodaj do koszyka</string>
+    <string name="add_to_cart_success">Dodano do koszyka</string>
+    <string name="go_to_cart">Idź do koszyka</string>
+    <string name="my_cart">Koszyk</string>
+    <string name="cart_empty">Koszyk jest pusty</string>
+    <string name="item_price">Cena:</string>
+    <string name="total_charge">Do zapłaty:</string>
+    <string name="shipping_charge">Wysyłka:</string>
+    <string name="pay_and_buy">Kupuję i płacę</string>
+    <string name="action_cart">Koszyk</string>
 
 </resources>

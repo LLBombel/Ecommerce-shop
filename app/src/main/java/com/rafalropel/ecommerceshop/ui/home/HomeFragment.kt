@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.rafalropel.ecommerceshop.CartListActivity
 import com.rafalropel.ecommerceshop.ProductDetailsActivity
 import com.rafalropel.ecommerceshop.R
 import com.rafalropel.ecommerceshop.SettingsActivity
@@ -68,6 +69,10 @@ class HomeFragment : Fragment() {
                 startActivity(Intent(activity, SettingsActivity::class.java))
                 return true
             }
+            R.id.action_cart ->{
+                startActivity(Intent(activity, CartListActivity::class.java))
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -86,6 +91,7 @@ class HomeFragment : Fragment() {
                 override fun onClick(position: Int, product: Product) {
                     val intent = Intent(context, ProductDetailsActivity::class.java)
                     intent.putExtra(Constants.EXTRA_PRODUCT_ID, product.product_id)
+                    intent.putExtra(Constants.EXTRA_PRODUCT_OWNER_ID, product.user_id)
                     startActivity(intent)
                 }
             } )
