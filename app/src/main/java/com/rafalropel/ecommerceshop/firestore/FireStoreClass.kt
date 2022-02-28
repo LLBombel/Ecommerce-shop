@@ -224,4 +224,20 @@ class FireStoreClass {
             }
     }
 
+    fun getProductDetails(activity: ProductDetailsActivity, productId: String){
+        mFireStore.collection(Constants.PRODUCTS)
+            .document(productId)
+            .get()
+            .addOnSuccessListener { document ->
+                val product = document.toObject(Product::class.java)
+                if(product != null) {
+                    activity.productDetailsSuccess(product)
+                }
+
+            }
+            .addOnFailureListener {
+                Log.e(activity.javaClass.simpleName, "Błąd")
+            }
+    }
+
 }

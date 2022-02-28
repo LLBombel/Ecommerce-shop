@@ -9,6 +9,7 @@ import com.rafalropel.ecommerceshop.ProductDetailsActivity
 import com.rafalropel.ecommerceshop.databinding.ProductItemBinding
 import com.rafalropel.ecommerceshop.model.Product
 import com.rafalropel.ecommerceshop.ui.dashboard.ProductsFragment
+import com.rafalropel.ecommerceshop.utils.Constants
 import com.rafalropel.ecommerceshop.utils.GlideLoader
 
 class ProductsAdapter(private val context: Context, private var list: ArrayList<Product>, private val fragment: ProductsFragment) :
@@ -32,6 +33,7 @@ class ProductsAdapter(private val context: Context, private var list: ArrayList<
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, ProductDetailsActivity::class.java)
+            intent.putExtra(Constants.EXTRA_PRODUCT_ID, item.product_id)
             context.startActivity(intent)
         }
 

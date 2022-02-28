@@ -134,7 +134,7 @@
                     android:paddingStart="@dimen/product_details_amount_paddingStartEnd"
                     android:paddingEnd="@dimen/product_details_amount_paddingStartEnd"
                     android:paddingBottom="@dimen/product_details_amount_paddingTopBottom"
-                    android:textColor="@color/PrimaryText"
+                    android:textColor="@color/colorAccent"
                     android:textSize="@dimen/product_details_amount_textSize"
                     tools:text="5" />
             </LinearLayout>

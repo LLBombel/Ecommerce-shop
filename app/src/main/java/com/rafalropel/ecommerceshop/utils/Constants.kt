@@ -23,6 +23,7 @@ object Constants {
     const val PRODUCT_IMAGE: String = "Product_Image"
     const val PRODUCTS: String = "products"
     const val USER_ID: String = "user_id"
+    const val EXTRA_PRODUCT_ID = "extra_product_id"
 
 
     fun imageChooser(activity: Activity) {

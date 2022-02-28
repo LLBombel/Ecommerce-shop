@@ -10,6 +10,9 @@ import com.rafalropel.ecommerceshop.utils.GlideLoader
 
 class ProductHomeAdapter(private val context: Context, private var list: ArrayList<Product>) :
     RecyclerView.Adapter<ProductHomeAdapter.ViewHolder>() {
+
+    private var onClickListener: OnClickListener? = null
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -24,6 +27,11 @@ class ProductHomeAdapter(private val context: Context, private var list: ArrayLi
 
         holder.tvHomeItemTitle.text = item.title
         holder.tvHomeItemPrice.text = item.price
+        holder.itemView.setOnClickListener {
+            if(onClickListener != null){
+                onClickListener!!.onClick(position, item)
+            }
+        }
 
         GlideLoader(context).loadProductPicture(item.image, holder.ivHomeItemImage)
     }
@@ -38,5 +46,14 @@ class ProductHomeAdapter(private val context: Context, private var list: ArrayLi
         val llHomeItemDetails = binding.llHomeItemDetails
         val tvHomeItemTitle = binding.tvHomeItemTitle
         val tvHomeItemPrice = binding.tvHomeItemPrice
+    }
+
+
+    interface OnClickListener{
+        fun onClick(position: Int, product: Product)
+    }
+
+    fun setOnClickListener(onClickListener: OnClickListener){
+        this.onClickListener = onClickListener
     }
 }

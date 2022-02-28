@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.rafalropel.ecommerceshop.ProductDetailsActivity
 import com.rafalropel.ecommerceshop.R
 import com.rafalropel.ecommerceshop.SettingsActivity
 import com.rafalropel.ecommerceshop.adapter.ProductHomeAdapter
 import com.rafalropel.ecommerceshop.databinding.FragmentHomeBinding
 import com.rafalropel.ecommerceshop.firestore.FireStoreClass
 import com.rafalropel.ecommerceshop.model.Product
+import com.rafalropel.ecommerceshop.utils.Constants
 
 class HomeFragment : Fragment() {
 
@@ -79,6 +81,14 @@ class HomeFragment : Fragment() {
             binding.rvHome.setHasFixedSize(true)
             val adapter = ProductHomeAdapter(requireActivity(), homeItemsList)
             binding.rvHome.adapter = adapter
+
+            adapter.setOnClickListener(object: ProductHomeAdapter.OnClickListener{
+                override fun onClick(position: Int, product: Product) {
+                    val intent = Intent(context, ProductDetailsActivity::class.java)
+                    intent.putExtra(Constants.EXTRA_PRODUCT_ID, product.product_id)
+                    startActivity(intent)
+                }
+            } )
         } else {
             binding.tvNoItemsHome.visibility = View.VISIBLE
             binding.rvHome.visibility = View.GONE
