@@ -7,10 +7,13 @@
         <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/drawable/gender_selector.xml" value="0.3305" />
         <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/drawable/gender_selector_text_color.xml" value="0.3305" />
         <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/drawable/gradient_bg.xml" value="0.3305" />
+        <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/drawable/ic_add.xml" value="0.3305" />
+        <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/drawable/ic_add_photo.xml" value="0.3305" />
         <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/drawable/ic_cart.xml" value="0.3305" />
         <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/drawable/ic_vector_chevron_right.xml" value="0.3305" />
         <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/drawable/ic_vector_products.xml" value="0.3305" />
         <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/drawable/ic_vector_settings.xml" value="0.3305" />
+        <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/drawable/item_dashboard_background.xml" value="0.3305" />
         <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/drawable/item_grey_border_background.xml" value="0.3305" />
         <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/drawable/item_home_bg.xml" value="0.3305" />
         <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/drawable/rv_item_image_background.xml" value="0.3305" />
@@ -26,6 +29,7 @@
         <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/layout/activity_settings.xml" value="0.36666666666666664" />
         <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/layout/activity_splash_screen.xml" value="0.36666666666666664" />
         <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/layout/activity_user_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/layout/cart_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/layout/fragment_base.xml" value="0.36666666666666664" />
         <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
         <entry key="..\:/Praca/projekty/ecommerce/app/src/main/res/layout/fragment_notifications.xml" value="0.36666666666666664" />

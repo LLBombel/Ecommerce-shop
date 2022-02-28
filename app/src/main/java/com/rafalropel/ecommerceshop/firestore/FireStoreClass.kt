@@ -269,4 +269,27 @@ class FireStoreClass {
             }
     }
 
+    fun getCartList(activity: Activity){
+        mFireStore.collection(Constants.CART_ITEMS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get()
+            .addOnSuccessListener { document ->
+                val list: ArrayList<Cart> = ArrayList()
+
+                for(i in document.documents){
+                    val cartItem = i.toObject(Cart::class.java)
+                    cartItem!!.id = i.id
+                    list.add(cartItem)
+                }
+                when(activity){
+                    is CartListActivity -> {
+                        activity.successCartItemsList(list)
+                    }
+                }
+            }
+            .addOnFailureListener {
+                Log.e(activity.javaClass.simpleName, "Błąd")
+            }
+    }
+
 }
