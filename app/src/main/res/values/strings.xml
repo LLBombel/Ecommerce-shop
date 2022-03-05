@@ -78,6 +78,11 @@
     <string name="lbl_office">Biuro</string>
     <string name="lbl_other">Inne</string>
     <string name="btn_lbl_submit">Dodaj adres</string>
+    <string name="please_enter_full_name">Proszę wprowadzić imię i nazwisko</string>
+    <string name="please_enter_phone_number">Proszę wprowadzić numer telefonu</string>
+    <string name="please_enter_address">Proszę wprowadzić adres</string>
+    <string name="please_enter_zip_code">Prosze wprowadzić kod pocztowy</string>
+    <string name="address_add_success">Dodano adres</string>
 
 
 </resources>

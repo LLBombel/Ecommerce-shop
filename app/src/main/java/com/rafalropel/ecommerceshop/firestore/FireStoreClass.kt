@@ -12,6 +12,7 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.rafalropel.ecommerceshop.*
+import com.rafalropel.ecommerceshop.model.Address
 import com.rafalropel.ecommerceshop.model.Cart
 import com.rafalropel.ecommerceshop.model.Product
 import com.rafalropel.ecommerceshop.model.User
@@ -341,6 +342,40 @@ class FireStoreClass {
             }
             .addOnFailureListener {
                 Log.e(context.javaClass.simpleName, "Błąd")
+            }
+    }
+
+    fun addAddress(activity: AddEditAddressActivity, addressInfo: Address){
+        mFireStore.collection(Constants.ADDRESSES)
+            .document()
+            .set(addressInfo, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.addAddressSuccess()
+            }
+            .addOnFailureListener {
+                Log.e(activity.javaClass.simpleName, "Błąd")
+            }
+    }
+
+    fun getAddressesList(activity: AddressListActivity){
+        mFireStore.collection(Constants.ADDRESSES)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get()
+            .addOnSuccessListener {document ->
+                Log.e(activity.javaClass.simpleName, document.documents.toString())
+
+                val addressList: ArrayList<Address> = ArrayList()
+
+                for(i in document.documents){
+                    val address = i.toObject(Address::class.java)!!
+
+                    address.id = i.id
+                    addressList.add(address)
+                }
+                activity.successAddressListFromFirestore(addressList)
+            }
+            .addOnFailureListener {
+                Log.e(activity.javaClass.simpleName, "Błąd")
             }
     }
 }

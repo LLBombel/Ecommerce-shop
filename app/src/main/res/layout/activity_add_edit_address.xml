@@ -224,6 +224,7 @@
                 android:hint="Inne informacje"
                 android:textColorHint="@color/SecondaryText"
                 android:visibility="gone"
+                tools:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rg_type">

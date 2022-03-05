@@ -34,9 +34,9 @@ class SettingsActivity : BaseActivity() {
         binding.tvEdit.setOnClickListener {
             val intent = Intent(this, UserProfileActivity::class.java)
             intent.putExtra(Constants.EXTRA_USER_DETAILS, mUserDetails)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
             startActivity(intent)
-            finish()
+
         }
 
         binding.llAddress.setOnClickListener{
