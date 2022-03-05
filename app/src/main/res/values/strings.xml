@@ -65,5 +65,19 @@
     <string name="action_cart">Koszyk</string>
     <string name="out_of_stock">Brak w magazynie</string>
     <string name="item_removed_success">Usunięto pozycję</string>
+    <string name="title_address_list">ADRESY</string>
+    <string name="no_address_found">Brak dodanych adresów</string>
+    <string name="lbL_add_address">Dodaj adres</string>
+    <string name="title_add_address">Dodaj adres</string>
+    <string name="hint_full_name">Imię i nazwisko</string>
+    <string name="hint_phone_number">Numer telefonu</string>
+    <string name="hint_address">Adres</string>
+    <string name="hint_zip_code">Kod pocztowy</string>
+    <string name="hint_additional_note">Dodatkowe informacje</string>
+    <string name="lbl_home">Dom</string>
+    <string name="lbl_office">Biuro</string>
+    <string name="lbl_other">Inne</string>
+    <string name="btn_lbl_submit">Dodaj adres</string>
+
 
 </resources>

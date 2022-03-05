@@ -40,7 +40,8 @@ class SettingsActivity : BaseActivity() {
         }
 
         binding.llAddress.setOnClickListener{
-
+            val intent = Intent(this, AddressListActivity::class.java)
+            startActivity(intent)
         }
 
     }
