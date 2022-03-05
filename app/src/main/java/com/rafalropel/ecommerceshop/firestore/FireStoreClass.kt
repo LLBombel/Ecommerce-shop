@@ -195,14 +195,14 @@ class FireStoreClass {
 
                 val productsList: ArrayList<Product> = ArrayList()
 
-                for(i in document.documents){
+                for (i in document.documents) {
                     val product = i.toObject(Product::class.java)!!
                     product.product_id = i.id
                     productsList.add(product)
                 }
 
-                when(fragment){
-                    is HomeFragment ->{
+                when (fragment) {
+                    is HomeFragment -> {
                         fragment.getHomeItemsSuccess(productsList)
                     }
                 }
@@ -213,7 +213,7 @@ class FireStoreClass {
             }
     }
 
-    fun deleteProduct(fragment: ProductsFragment, productID: String){
+    fun deleteProduct(fragment: ProductsFragment, productID: String) {
         mFireStore.collection(Constants.PRODUCTS)
             .document(productID)
             .delete()
@@ -225,13 +225,13 @@ class FireStoreClass {
             }
     }
 
-    fun getProductDetails(activity: ProductDetailsActivity, productId: String){
+    fun getProductDetails(activity: ProductDetailsActivity, productId: String) {
         mFireStore.collection(Constants.PRODUCTS)
             .document(productId)
             .get()
             .addOnSuccessListener { document ->
                 val product = document.toObject(Product::class.java)
-                if(product != null) {
+                if (product != null) {
                     activity.productDetailsSuccess(product)
                 }
 
@@ -241,7 +241,7 @@ class FireStoreClass {
             }
     }
 
-    fun addCartItems(activity: ProductDetailsActivity, addToCart: Cart){
+    fun addCartItems(activity: ProductDetailsActivity, addToCart: Cart) {
         mFireStore.collection(Constants.CART_ITEMS)
             .document()
             .set(addToCart, SetOptions.merge())
@@ -253,13 +253,13 @@ class FireStoreClass {
             }
     }
 
-    fun checkIfItemExistInCart(activity: ProductDetailsActivity, productId: String){
+    fun checkIfItemExistInCart(activity: ProductDetailsActivity, productId: String) {
         mFireStore.collection(Constants.CART_ITEMS)
             .whereEqualTo(Constants.USER_ID, getCurrentUserID())
             .whereEqualTo(Constants.PRODUCT_ID, productId)
             .get()
             .addOnSuccessListener { document ->
-                if(document.documents.size > 0){
+                if (document.documents.size > 0) {
                     activity.productExistInCart()
                 }
 
@@ -269,19 +269,19 @@ class FireStoreClass {
             }
     }
 
-    fun getCartList(activity: Activity){
+    fun getCartList(activity: Activity) {
         mFireStore.collection(Constants.CART_ITEMS)
             .whereEqualTo(Constants.USER_ID, getCurrentUserID())
             .get()
             .addOnSuccessListener { document ->
                 val list: ArrayList<Cart> = ArrayList()
 
-                for(i in document.documents){
+                for (i in document.documents) {
                     val cartItem = i.toObject(Cart::class.java)
                     cartItem!!.id = i.id
                     list.add(cartItem)
                 }
-                when(activity){
+                when (activity) {
                     is CartListActivity -> {
                         activity.successCartItemsList(list)
                     }
@@ -292,4 +292,55 @@ class FireStoreClass {
             }
     }
 
+    fun getAllProductsList(activity: CartListActivity) {
+        mFireStore.collection(Constants.PRODUCTS)
+            .get()
+            .addOnSuccessListener { document ->
+                val productsList: ArrayList<Product> = ArrayList()
+                for (i in document.documents) {
+                    val product = i.toObject(Product::class.java)
+                    product!!.product_id = i.id
+
+                    productsList.add(product)
+                }
+                activity.successProductsListFromFirestore(productsList)
+
+            }
+            .addOnFailureListener {
+                Log.e("product list", "Błąd")
+            }
+    }
+
+    fun removeItemFromCart(context: Context, cart_id: String) {
+        mFireStore.collection(Constants.CART_ITEMS)
+            .document(cart_id)
+            .delete()
+            .addOnSuccessListener {
+                when(context){
+                    is CartListActivity -> {
+                        context.itemRemoveSuccess()
+                    }
+                }
+
+            }
+            .addOnFailureListener {
+                Log.e(context.javaClass.simpleName, "Błąd")
+            }
+    }
+
+    fun updateCart(context: Context, cart_id: String, itemHashMap: HashMap<String, Any>){
+        mFireStore.collection(Constants.CART_ITEMS)
+            .document(cart_id)
+            .update(itemHashMap)
+            .addOnSuccessListener {
+                when(context){
+                    is CartListActivity ->{
+                        context.updateCartSuccess()
+                    }
+                }
+            }
+            .addOnFailureListener {
+                Log.e(context.javaClass.simpleName, "Błąd")
+            }
+    }
 }

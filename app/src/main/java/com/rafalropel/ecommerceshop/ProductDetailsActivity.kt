@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.rafalropel.ecommerceshop.databinding.ActivityProductDetailsBinding
 import com.rafalropel.ecommerceshop.firestore.FireStoreClass
 import com.rafalropel.ecommerceshop.model.Cart
@@ -82,9 +83,22 @@ class ProductDetailsActivity : BaseActivity() {
         binding.tvProductDetailsDescription.text = product.description
         binding.tvProductDetailsAmount.text = product.amount
 
-        if(FireStoreClass().getCurrentUserID() != product.user_id){
-            FireStoreClass().checkIfItemExistInCart(this, mProductId)
+        if (product.amount.toInt() == 0) {
+            binding.btnAddToCart.visibility = View.GONE
+            binding.tvProductDetailsAmount.text = getString(R.string.out_of_stock)
+            binding.tvProductDetailsAmount.setTextColor(
+                ContextCompat.getColor(
+                    this@ProductDetailsActivity,
+                    R.color.ThemePink
+                )
+            )
+        }else{
+            if (FireStoreClass().getCurrentUserID() != product.user_id) {
+                FireStoreClass().checkIfItemExistInCart(this, mProductId)
+            }
         }
+
+
     }
 
     private fun addToCart() {
@@ -97,7 +111,7 @@ class ProductDetailsActivity : BaseActivity() {
             Constants.DEFAULT_CART_QUANTITY
         )
 
-        FireStoreClass().addCartItems(this, cartItem )
+        FireStoreClass().addCartItems(this, cartItem)
     }
 
     fun addToCartSuccess() {
@@ -106,7 +120,7 @@ class ProductDetailsActivity : BaseActivity() {
         binding.btnGoToCart.visibility = View.VISIBLE
     }
 
-    fun productExistInCart(){
+    fun productExistInCart() {
         binding.btnAddToCart.visibility = View.GONE
         binding.btnGoToCart.visibility = View.VISIBLE
     }

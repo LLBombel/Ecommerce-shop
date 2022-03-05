@@ -63,5 +63,7 @@
     <string name="shipping_charge">Wysyłka:</string>
     <string name="pay_and_buy">Kupuję i płacę</string>
     <string name="action_cart">Koszyk</string>
+    <string name="out_of_stock">Brak w magazynie</string>
+    <string name="item_removed_success">Usunięto pozycję</string>
 
 </resources>

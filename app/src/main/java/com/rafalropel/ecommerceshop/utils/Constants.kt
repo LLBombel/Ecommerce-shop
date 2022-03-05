@@ -28,6 +28,7 @@ object Constants {
     const val DEFAULT_CART_QUANTITY: String = "1"
     const val CART_ITEMS: String = "cart_items"
     const val PRODUCT_ID: String = "product_id"
+    const val CART_AMOUNT: String = "cart_amount"
 
     fun imageChooser(activity: Activity) {
         val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)

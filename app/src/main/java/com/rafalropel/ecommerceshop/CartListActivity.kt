@@ -2,16 +2,21 @@ package com.rafalropel.ecommerceshop
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rafalropel.ecommerceshop.adapter.CartItemsAdapter
 import com.rafalropel.ecommerceshop.databinding.ActivityCartListBinding
 import com.rafalropel.ecommerceshop.firestore.FireStoreClass
 import com.rafalropel.ecommerceshop.model.Cart
+import com.rafalropel.ecommerceshop.model.Product
 
 private lateinit var binding: ActivityCartListBinding
 
 class CartListActivity : AppCompatActivity() {
+
+    private lateinit var mProductsList: ArrayList<Product>
+    private lateinit var mCartListItems: ArrayList<Cart>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCartListBinding.inflate(layoutInflater)
@@ -32,7 +37,23 @@ class CartListActivity : AppCompatActivity() {
     }
 
     fun successCartItemsList(cartList: ArrayList<Cart>) {
-        if (cartList.size > 0) {
+
+        for (product in mProductsList) {
+            for (cart in cartList) {
+                if (product.product_id == cart.product_id) {
+                    cart.amount = product.amount
+
+                    if (product.amount.toInt() == 0) {
+                        cart.cart_amount = product.amount
+                    }
+                }
+            }
+        }
+
+        mCartListItems = cartList
+
+
+        if (mCartListItems.size > 0) {
             binding.rvCartItemsList.visibility = View.VISIBLE
             binding.llCheckout.visibility = View.VISIBLE
             binding.tvNoCartItemFound.visibility = View.GONE
@@ -46,25 +67,32 @@ class CartListActivity : AppCompatActivity() {
 
             var subTotal: Double = 0.0
 
-            for (item in cartList) {
-                val price = item.price.toDouble()
-                val quantity = item.cart_amount.toInt()
+            for (item in mCartListItems) {
 
-                subTotal += (price * quantity)
+                val availableQuantity = item.amount.toInt()
+
+                if (availableQuantity > 0){
+                    val price = item.price.toDouble()
+                    val quantity = item.cart_amount.toInt()
+
+                    subTotal += (price * quantity)
+                }
+
+
             }
 
             binding.tvSubTotal.text = "$subTotal"
             binding.tvShippingCharge.text = "10"
 
-            if(subTotal > 0){
+            if (subTotal > 0) {
                 binding.llCheckout.visibility = View.VISIBLE
                 val total = subTotal + 10
                 binding.tvTotalAmount.text = "$total"
-            }else{
+            } else {
                 binding.llCheckout.visibility = View.GONE
             }
 
-        }else{
+        } else {
             binding.rvCartItemsList.visibility = View.GONE
             binding.llCheckout.visibility = View.GONE
             binding.tvNoCartItemFound.visibility = View.VISIBLE
@@ -77,6 +105,24 @@ class CartListActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        getProductList()
+    }
+
+    fun successProductsListFromFirestore(productList: ArrayList<Product>) {
+        mProductsList = productList
+        getCartItemsList()
+    }
+
+    private fun getProductList() {
+        FireStoreClass().getAllProductsList(this@CartListActivity)
+    }
+
+    fun itemRemoveSuccess(){
+        Toast.makeText(this@CartListActivity, getString(R.string.item_removed_success), Toast.LENGTH_SHORT).show()
+        getCartItemsList()
+    }
+    fun updateCartSuccess(){
         getCartItemsList()
     }
 }
