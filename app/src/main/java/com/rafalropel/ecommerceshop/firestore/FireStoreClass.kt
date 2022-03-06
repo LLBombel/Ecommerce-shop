@@ -378,4 +378,28 @@ class FireStoreClass {
                 Log.e(activity.javaClass.simpleName, "Błąd")
             }
     }
+
+    fun updateAddress(activity: AddEditAddressActivity, addressInfo: Address, addressId: String){
+       mFireStore.collection(Constants.ADDRESSES)
+           .document(addressId)
+           .set(addressInfo, SetOptions.merge())
+           .addOnSuccessListener {
+               activity.addAddressSuccess()
+           }
+           .addOnFailureListener {
+               Log.e(activity.javaClass.simpleName, "Błąd")
+           }
+    }
+
+    fun deleteAddress(activity: AddressListActivity, addressId: String){
+        mFireStore.collection(Constants.ADDRESSES)
+            .document(addressId)
+            .delete()
+            .addOnSuccessListener {
+                activity.deleteAddressSuccess()
+            }
+            .addOnFailureListener {
+                Log.e(activity.javaClass.simpleName, "Błąd")
+            }
+    }
 }

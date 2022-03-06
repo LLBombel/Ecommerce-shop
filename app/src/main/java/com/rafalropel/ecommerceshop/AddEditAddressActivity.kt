@@ -12,11 +12,46 @@ import com.rafalropel.ecommerceshop.utils.Constants
 private lateinit var binding: ActivityAddEditAddressBinding
 
 class AddEditAddressActivity : BaseActivity() {
+
+    private var mAddressDetails: Address? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddEditAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupActionBar()
+
+
+        if (intent.hasExtra(Constants.EXTRA_ADDRESS_DETAILS)) {
+            mAddressDetails = intent.getParcelableExtra(Constants.EXTRA_ADDRESS_DETAILS)
+        }
+
+        if (mAddressDetails != null) {
+            if (mAddressDetails!!.id.isNotEmpty()) {
+                binding.tvTitle.text = getString(R.string.edit_address)
+                binding.btnSubmitAddress.text = getString(R.string.update_adress)
+
+                binding.etFullName.setText(mAddressDetails?.name)
+                binding.etPhoneNumber.setText(mAddressDetails?.phoneNumber)
+                binding.etAddress.setText(mAddressDetails?.address)
+                binding.etZipCode.setText(mAddressDetails?.zipCode)
+                binding.etAdditionalNote.setText(mAddressDetails?.additionalNotes)
+
+
+                when (mAddressDetails?.type) {
+                    Constants.HOME -> {
+                        binding.rbHome.isChecked = true
+                    }
+                    Constants.OFFICE -> {
+                        binding.rbOffice.isChecked = true
+                    }
+                    else -> {
+                        binding.rbOther.isChecked = true
+                        binding.tilOtherDetails.visibility = View.VISIBLE
+                        binding.etOtherDetails.setText(mAddressDetails?.otherDetails)
+                    }
+                }
+            }
+        }
 
         binding.btnSubmitAddress.setOnClickListener {
             saveAddressToFirestore()
@@ -102,14 +137,24 @@ class AddEditAddressActivity : BaseActivity() {
                 addressType,
                 otherDetails
             )
-            FireStoreClass().addAddress(this, addressModel)
-        }
 
+            if (mAddressDetails != null && mAddressDetails!!.id.isNotEmpty()) {
+                FireStoreClass().updateAddress(this, addressModel, mAddressDetails!!.id)
+            } else {
+                FireStoreClass().addAddress(this, addressModel)
+            }
+        }
 
     }
 
     fun addAddressSuccess() {
-        Toast.makeText(this, getString(R.string.address_add_success), Toast.LENGTH_SHORT).show()
+
+        val successMessage: String = if (mAddressDetails != null && mAddressDetails!!.id.isNotEmpty()){
+            getString(R.string.address_edit_success)
+        }else{
+            getString(R.string.address_add_success)
+        }
+        Toast.makeText(this, successMessage, Toast.LENGTH_SHORT).show()
         finish()
     }
 

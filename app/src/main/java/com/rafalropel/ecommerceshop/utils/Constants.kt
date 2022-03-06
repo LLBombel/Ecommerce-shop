@@ -33,6 +33,7 @@ object Constants {
     const val OFFICE: String = "Biuro"
     const val OTHER: String = "Inne"
     const val ADDRESSES: String = "Addresses"
+    const val EXTRA_ADDRESS_DETAILS: String = "AddressDetails"
 
     fun imageChooser(activity: Activity) {
         val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)

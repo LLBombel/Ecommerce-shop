@@ -83,6 +83,10 @@
     <string name="please_enter_address">Proszę wprowadzić adres</string>
     <string name="please_enter_zip_code">Prosze wprowadzić kod pocztowy</string>
     <string name="address_add_success">Dodano adres</string>
+    <string name="edit_address">Edytuj adres</string>
+    <string name="update_adress">Zaktualizuj adres</string>
+    <string name="address_edit_success">Adres zaktualizowany pomyślnie</string>
+    <string name="address_delete_success">Adres usunięty pomyślnie</string>
 
 
 </resources>
