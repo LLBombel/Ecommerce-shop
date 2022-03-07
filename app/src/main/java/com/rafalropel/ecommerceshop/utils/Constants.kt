@@ -40,6 +40,7 @@ object Constants {
     const val ORDERS: String = "orders"
     const val AMOUNT: String = "amount"
     const val EXTRA_ORDER_DETAILS:String = "extra_order_details"
+    const val SOLD_PRODUCTS: String = "sold_products"
 
     fun imageChooser(activity: Activity) {
         val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)

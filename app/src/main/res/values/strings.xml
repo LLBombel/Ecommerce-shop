@@ -104,6 +104,10 @@
     <string name="order_status">Status zamówienia</string>
     <string name="order_shipping_address">Adres</string>
     <string name="order_received">Przyjęte</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sold_products">Sprzedane produkty</string>
+    <string name="no_products_sold_yet">Brak sprzedanych produktów</string>
 
 
 </resources>

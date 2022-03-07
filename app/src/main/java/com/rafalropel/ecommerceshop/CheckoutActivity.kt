@@ -23,6 +23,7 @@ private lateinit var mProductsList: ArrayList<Product>
 private lateinit var mCartItemsList: ArrayList<Cart>
 private var mSubtotal: Double = 0.0
 private var mTotalAmount: Double = 0.0
+private lateinit var mOrderDetails: Order
 
 class CheckoutActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,7 +121,7 @@ class CheckoutActivity : AppCompatActivity() {
 
     private fun placeOrder() {
         if (mAddressDetails != null) {
-            val order = Order(
+            mOrderDetails = Order(
                 FireStoreClass().getCurrentUserID(),
                 mCartItemsList,
                 mAddressDetails!!,
@@ -133,13 +134,13 @@ class CheckoutActivity : AppCompatActivity() {
 
             )
 
-            FireStoreClass().placeOrder(this, order)
+            FireStoreClass().placeOrder(this, mOrderDetails)
         }
 
     }
 
     fun placeOrderSuccess() {
-        FireStoreClass().updateAllDetails(this, mCartItemsList)
+        FireStoreClass().updateAllDetails(this, mCartItemsList, mOrderDetails)
     }
     fun detailsUpdateSuccess(){
         Toast.makeText(this, getString(R.string.place_order_success), Toast.LENGTH_SHORT).show()

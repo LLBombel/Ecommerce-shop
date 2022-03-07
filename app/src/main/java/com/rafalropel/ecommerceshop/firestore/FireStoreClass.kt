@@ -425,18 +425,27 @@ class FireStoreClass {
             }
     }
 
-    fun updateAllDetails(activity: CheckoutActivity, cartList: ArrayList<Cart>) {
+    fun updateAllDetails(activity: CheckoutActivity, cartList: ArrayList<Cart>, order: Order) {
         val writeBatch = mFireStore.batch()
         for (cartItem in cartList) {
-            val productsHashMap = HashMap<String, Any>()
+            val soldProduct = SoldProduct(
+                cartItem.product_owner_id,
+                cartItem.title,
+                cartItem.price,
+                cartItem.cart_amount,
+                cartItem.image,
+                order.title,
+                order.order_date,
+                order.subtotal_amount,
+                order.shipping_charge,
+                order.total_amount,
+                order.address
+            )
 
-            productsHashMap[Constants.AMOUNT] =
-                (cartItem.amount.toInt() - cartItem.cart_amount.toInt()).toString()
-
-            val documentReference = mFireStore.collection(Constants.PRODUCTS)
+            val documentReference = mFireStore.collection(Constants.SOLD_PRODUCTS)
                 .document(cartItem.product_id)
 
-            writeBatch.update(documentReference, productsHashMap)
+            writeBatch.set(documentReference, soldProduct)
         }
 
         for (cartItem in cartList) {
@@ -466,6 +475,25 @@ class FireStoreClass {
                     list.add(orderItem)
                 }
                 fragment.populateOrdersList(list)
+            }
+            .addOnFailureListener {
+                Log.e(fragment.javaClass.simpleName, "Błąd")
+            }
+    }
+
+    fun getSoldProducts(fragment: SoldProductsFragment){
+        mFireStore.collection(Constants.SOLD_PRODUCTS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get()
+            .addOnSuccessListener { document ->
+                val list: ArrayList<SoldProduct> = ArrayList()
+                for (i in document.documents){
+                    val soldProduct = i.toObject(SoldProduct::class.java)!!
+                    soldProduct.id = i.id
+
+                    list.add(soldProduct)
+                }
+                fragment.successSoldProducts(list)
             }
             .addOnFailureListener {
                 Log.e(fragment.javaClass.simpleName, "Błąd")

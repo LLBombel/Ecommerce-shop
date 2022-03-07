@@ -17,6 +17,7 @@ private lateinit var binding: ActivityProductDetailsBinding
 
 class ProductDetailsActivity : BaseActivity() {
 
+   private var mProductOwnerId: String = ""
     private var mProductId: String = ""
     private lateinit var mProductDetails: Product
 
@@ -31,13 +32,13 @@ class ProductDetailsActivity : BaseActivity() {
 
         }
 
-        var productOwnerId = ""
+
 
         if (intent.hasExtra(Constants.EXTRA_PRODUCT_OWNER_ID)) {
-            productOwnerId = intent.getStringExtra(Constants.EXTRA_PRODUCT_OWNER_ID)!!
+            mProductOwnerId = intent.getStringExtra(Constants.EXTRA_PRODUCT_OWNER_ID)!!
         }
 
-        if (FireStoreClass().getCurrentUserID() == productOwnerId) {
+        if (FireStoreClass().getCurrentUserID() == mProductOwnerId) {
             binding.btnAddToCart.visibility = View.GONE
             binding.btnGoToCart.visibility = View.GONE
         } else {
@@ -104,6 +105,7 @@ class ProductDetailsActivity : BaseActivity() {
     private fun addToCart() {
         val cartItem = Cart(
             FireStoreClass().getCurrentUserID(),
+            mProductOwnerId,
             mProductId,
             mProductDetails.title,
             mProductDetails.price,
