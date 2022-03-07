@@ -137,6 +137,9 @@ class CheckoutActivity : AppCompatActivity() {
     }
 
     fun placeOrderSuccess() {
+        FireStoreClass().updateAllDetails(this, mCartItemsList)
+    }
+    fun detailsUpdateSuccess(){
         Toast.makeText(this, getString(R.string.place_order_success), Toast.LENGTH_SHORT).show()
 
         val intent = Intent(this, DashboardActivity::class.java)
@@ -144,4 +147,4 @@ class CheckoutActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-}
+    }

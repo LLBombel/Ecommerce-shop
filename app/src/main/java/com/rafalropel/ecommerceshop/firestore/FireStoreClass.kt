@@ -15,6 +15,7 @@ import com.rafalropel.ecommerceshop.*
 import com.rafalropel.ecommerceshop.model.*
 import com.rafalropel.ecommerceshop.ui.dashboard.ProductsFragment
 import com.rafalropel.ecommerceshop.ui.home.HomeFragment
+import com.rafalropel.ecommerceshop.ui.notifications.OrdersFragment
 import com.rafalropel.ecommerceshop.utils.Constants
 
 class FireStoreClass {
@@ -283,8 +284,8 @@ class FireStoreClass {
                     is CartListActivity -> {
                         activity.successCartItemsList(list)
                     }
-                    is CheckoutActivity ->{
-                       activity.successCartItemsList(list)
+                    is CheckoutActivity -> {
+                        activity.successCartItemsList(list)
                     }
 
                 }
@@ -306,11 +307,11 @@ class FireStoreClass {
                     productsList.add(product)
                 }
 
-                when(activity){
-                    is CartListActivity ->{
+                when (activity) {
+                    is CartListActivity -> {
                         activity.successProductsListFromFirestore(productsList)
                     }
-                    is CheckoutActivity ->{
+                    is CheckoutActivity -> {
                         activity.successProductsListFromFirestore(productsList)
                     }
                 }
@@ -326,7 +327,7 @@ class FireStoreClass {
             .document(cart_id)
             .delete()
             .addOnSuccessListener {
-                when(context){
+                when (context) {
                     is CartListActivity -> {
                         context.itemRemoveSuccess()
                     }
@@ -338,13 +339,13 @@ class FireStoreClass {
             }
     }
 
-    fun updateCart(context: Context, cart_id: String, itemHashMap: HashMap<String, Any>){
+    fun updateCart(context: Context, cart_id: String, itemHashMap: HashMap<String, Any>) {
         mFireStore.collection(Constants.CART_ITEMS)
             .document(cart_id)
             .update(itemHashMap)
             .addOnSuccessListener {
-                when(context){
-                    is CartListActivity ->{
+                when (context) {
+                    is CartListActivity -> {
                         context.updateCartSuccess()
                     }
                 }
@@ -354,7 +355,7 @@ class FireStoreClass {
             }
     }
 
-    fun addAddress(activity: AddEditAddressActivity, addressInfo: Address){
+    fun addAddress(activity: AddEditAddressActivity, addressInfo: Address) {
         mFireStore.collection(Constants.ADDRESSES)
             .document()
             .set(addressInfo, SetOptions.merge())
@@ -366,16 +367,16 @@ class FireStoreClass {
             }
     }
 
-    fun getAddressesList(activity: AddressListActivity){
+    fun getAddressesList(activity: AddressListActivity) {
         mFireStore.collection(Constants.ADDRESSES)
             .whereEqualTo(Constants.USER_ID, getCurrentUserID())
             .get()
-            .addOnSuccessListener {document ->
+            .addOnSuccessListener { document ->
                 Log.e(activity.javaClass.simpleName, document.documents.toString())
 
                 val addressList: ArrayList<Address> = ArrayList()
 
-                for(i in document.documents){
+                for (i in document.documents) {
                     val address = i.toObject(Address::class.java)!!
 
                     address.id = i.id
@@ -388,19 +389,19 @@ class FireStoreClass {
             }
     }
 
-    fun updateAddress(activity: AddEditAddressActivity, addressInfo: Address, addressId: String){
-       mFireStore.collection(Constants.ADDRESSES)
-           .document(addressId)
-           .set(addressInfo, SetOptions.merge())
-           .addOnSuccessListener {
-               activity.addAddressSuccess()
-           }
-           .addOnFailureListener {
-               Log.e(activity.javaClass.simpleName, "Błąd")
-           }
+    fun updateAddress(activity: AddEditAddressActivity, addressInfo: Address, addressId: String) {
+        mFireStore.collection(Constants.ADDRESSES)
+            .document(addressId)
+            .set(addressInfo, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.addAddressSuccess()
+            }
+            .addOnFailureListener {
+                Log.e(activity.javaClass.simpleName, "Błąd")
+            }
     }
 
-    fun deleteAddress(activity: AddressListActivity, addressId: String){
+    fun deleteAddress(activity: AddressListActivity, addressId: String) {
         mFireStore.collection(Constants.ADDRESSES)
             .document(addressId)
             .delete()
@@ -412,7 +413,7 @@ class FireStoreClass {
             }
     }
 
-    fun placeOrder(activity: CheckoutActivity, order: Order){
+    fun placeOrder(activity: CheckoutActivity, order: Order) {
         mFireStore.collection(Constants.ORDERS)
             .document()
             .set(order, SetOptions.merge())
@@ -421,6 +422,53 @@ class FireStoreClass {
             }
             .addOnFailureListener {
                 Log.e(activity.javaClass.simpleName, "Błąd")
+            }
+    }
+
+    fun updateAllDetails(activity: CheckoutActivity, cartList: ArrayList<Cart>) {
+        val writeBatch = mFireStore.batch()
+        for (cartItem in cartList) {
+            val productsHashMap = HashMap<String, Any>()
+
+            productsHashMap[Constants.AMOUNT] =
+                (cartItem.amount.toInt() - cartItem.cart_amount.toInt()).toString()
+
+            val documentReference = mFireStore.collection(Constants.PRODUCTS)
+                .document(cartItem.product_id)
+
+            writeBatch.update(documentReference, productsHashMap)
+        }
+
+        for (cartItem in cartList) {
+            val documentReference = mFireStore.collection(Constants.CART_ITEMS)
+                .document(cartItem.id)
+            writeBatch.delete(documentReference)
+        }
+
+        writeBatch.commit().addOnSuccessListener {
+            activity.detailsUpdateSuccess()
+        }.addOnFailureListener {
+            Log.e(activity.javaClass.simpleName, "Błąd")
+        }
+
+    }
+
+    fun getOrdersList(fragment: OrdersFragment) {
+        mFireStore.collection(Constants.ORDERS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get()
+            .addOnSuccessListener { document ->
+                val list: ArrayList<Order> = ArrayList()
+
+                for (i in document.documents) {
+                    val orderItem = i.toObject(Order::class.java)!!
+                    orderItem.id = i.id
+                    list.add(orderItem)
+                }
+                fragment.populateOrdersList(list)
+            }
+            .addOnFailureListener {
+                Log.e(fragment.javaClass.simpleName, "Błąd")
             }
     }
 }

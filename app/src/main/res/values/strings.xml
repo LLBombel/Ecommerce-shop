@@ -97,6 +97,7 @@
     <string name="lbl_cash_on_delivery">Przy odbiorze</string>
     <string name="btn_lbl_place_order">Zamawiam</string>
     <string name="place_order_success">Zamówienie złożone pomyślnie</string>
+    <string name="no_order_placed">Brak złożonych zamówień</string>
 
 
 </resources>
