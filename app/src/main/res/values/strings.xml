@@ -98,6 +98,12 @@
     <string name="btn_lbl_place_order">Zamawiam</string>
     <string name="place_order_success">Zamówienie złożone pomyślnie</string>
     <string name="no_order_placed">Brak złożonych zamówień</string>
+    <string name="order_details">Szczegóły zamówienia</string>
+    <string name="order_number">Numer zamówienia</string>
+    <string name="order_date">Data zamówienia</string>
+    <string name="order_status">Status zamówienia</string>
+    <string name="order_shipping_address">Adres</string>
+    <string name="order_received">Przyjęte</string>
 
 
 </resources>

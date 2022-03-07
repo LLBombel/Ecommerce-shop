@@ -128,7 +128,9 @@ class CheckoutActivity : AppCompatActivity() {
                 mCartItemsList[0].image,
                 mSubtotal.toString(),
                 "10",
-                mTotalAmount.toString()
+                mTotalAmount.toString(),
+                System.currentTimeMillis()
+
             )
 
             FireStoreClass().placeOrder(this, order)
