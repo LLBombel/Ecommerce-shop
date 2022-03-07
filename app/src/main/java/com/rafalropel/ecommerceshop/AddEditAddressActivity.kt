@@ -155,6 +155,7 @@ class AddEditAddressActivity : BaseActivity() {
             getString(R.string.address_add_success)
         }
         Toast.makeText(this, successMessage, Toast.LENGTH_SHORT).show()
+        setResult(RESULT_OK)
         finish()
     }
 

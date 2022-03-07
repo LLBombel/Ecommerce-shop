@@ -1,5 +1,6 @@
 package com.rafalropel.ecommerceshop
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -10,6 +11,7 @@ import com.rafalropel.ecommerceshop.databinding.ActivityCartListBinding
 import com.rafalropel.ecommerceshop.firestore.FireStoreClass
 import com.rafalropel.ecommerceshop.model.Cart
 import com.rafalropel.ecommerceshop.model.Product
+import com.rafalropel.ecommerceshop.utils.Constants
 
 private lateinit var binding: ActivityCartListBinding
 
@@ -22,6 +24,12 @@ class CartListActivity : AppCompatActivity() {
         binding = ActivityCartListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupActionBar()
+
+        binding.btnCheckout.setOnClickListener {
+            val intent = Intent(this@CartListActivity, AddressListActivity::class.java)
+            intent.putExtra(Constants.EXTRA_SELECT_ADDRESS, true)
+            startActivity(intent)
+        }
     }
 
 
@@ -62,7 +70,7 @@ class CartListActivity : AppCompatActivity() {
             binding.rvCartItemsList.layoutManager = LinearLayoutManager(this@CartListActivity)
             binding.rvCartItemsList.setHasFixedSize(true)
 
-            val cartListAdapter = CartItemsAdapter(this@CartListActivity, cartList)
+            val cartListAdapter = CartItemsAdapter(this@CartListActivity, mCartListItems, true)
             binding.rvCartItemsList.adapter = cartListAdapter
 
             var subTotal: Double = 0.0

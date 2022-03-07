@@ -5,13 +5,19 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.rafalropel.ecommerceshop.AddEditAddressActivity
+import com.rafalropel.ecommerceshop.CheckoutActivity
 import com.rafalropel.ecommerceshop.databinding.AddressItemBinding
 import com.rafalropel.ecommerceshop.model.Address
 import com.rafalropel.ecommerceshop.utils.Constants
 
-class AddressAdapter(private val context: Context, private var list: ArrayList<Address>) :
+class AddressAdapter(
+    private val context: Context,
+    private var list: ArrayList<Address>,
+    private val selectAddress: Boolean
+) :
     RecyclerView.Adapter<AddressAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -26,7 +32,7 @@ class AddressAdapter(private val context: Context, private var list: ArrayList<A
     fun notifyEditItem(activity: Activity, position: Int) {
         val intent = Intent(context, AddEditAddressActivity::class.java)
         intent.putExtra(Constants.EXTRA_ADDRESS_DETAILS, list[position])
-        activity.startActivity(intent)
+        activity.startActivityForResult(intent, Constants.ADD_ADDRESS_REQUEST_CODE)
         notifyItemChanged(position)
     }
 
@@ -37,6 +43,14 @@ class AddressAdapter(private val context: Context, private var list: ArrayList<A
         holder.tvAddressType.text = item.type
         holder.tvAddressMobileNumber.text = item.phoneNumber
         holder.tvAddressDetails.text = "${item.address}, ${item.zipCode}"
+
+        if (selectAddress) {
+            holder.itemView.setOnClickListener {
+                val intent = Intent(context, CheckoutActivity::class.java)
+                intent.putExtra(Constants.EXTRA_SELECTED_ADDRESS, item)
+                context.startActivity(intent)
+            }
+        }
     }
 
 

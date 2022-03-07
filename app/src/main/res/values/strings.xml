@@ -87,6 +87,16 @@
     <string name="update_adress">Zaktualizuj adres</string>
     <string name="address_edit_success">Adres zaktualizowany pomyślnie</string>
     <string name="address_delete_success">Adres usunięty pomyślnie</string>
+    <string name="select_address">Wybierz adres</string>
+
+    <string name="title_checkout">Zamówienie</string>
+    <string name="checkout_lbl_product_items">Produkty</string>
+    <string name="checkout_lbl_selected_address">Wybrany adres</string>
+    <string name="checkout_lbl_items_receipt">Paragon</string>
+    <string name="lbl_payment_mode">Metoda płatności</string>
+    <string name="lbl_cash_on_delivery">Przy odbiorze</string>
+    <string name="btn_lbl_place_order">Zamawiam</string>
+    <string name="place_order_success">Zamówienie złożone pomyślnie</string>
 
 
 </resources>

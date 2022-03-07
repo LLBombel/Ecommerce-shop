@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.rafalropel.ecommerceshop.R
 
-abstract class SwipeToEditCallback(context: Context) :
-    ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+abstract class SwipeToEditCallback(context: Context): ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
 
     private val editIcon = ContextCompat.getDrawable(context, R.drawable.ic_edit)
     private val intrinsicWidth = editIcon!!.intrinsicWidth
@@ -49,25 +48,14 @@ abstract class SwipeToEditCallback(context: Context) :
         val isCanceled = dX == 0f && !isCurrentlyActive
 
 
-        if (isCanceled) {
-            clearCanvas(
-                c,
-                itemView.left + dX,
-                itemView.top.toFloat(),
-                itemView.left.toFloat(),
-                itemView.bottom.toFloat()
-            )
+        if(isCanceled){
+            clearCanvas(c, itemView.left + dX, itemView.top.toFloat(), itemView.left.toFloat(), itemView.bottom.toFloat())
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
             return
         }
 
         background.color = backgroundColor
-        background.setBounds(
-            itemView.left + dX.toInt(),
-            itemView.top,
-            itemView.left,
-            itemView.bottom
-        )
+        background.setBounds(itemView.left + dX.toInt(), itemView.top, itemView.left, itemView.bottom)
         background.draw(c)
 
         val editIconTop = itemView.top + (itemHeight - intrinsicHeight) / 2
@@ -82,7 +70,7 @@ abstract class SwipeToEditCallback(context: Context) :
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
     }
 
-    private fun clearCanvas(c: Canvas?, left: Float, top: Float, right: Float, bottom: Float) {
+    private fun clearCanvas(c: Canvas?, left: Float, top: Float, right: Float, bottom: Float){
         c?.drawRect(left, top, right, bottom, clearPaint)
     }
 }

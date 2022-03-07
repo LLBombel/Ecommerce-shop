@@ -12,10 +12,7 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.rafalropel.ecommerceshop.*
-import com.rafalropel.ecommerceshop.model.Address
-import com.rafalropel.ecommerceshop.model.Cart
-import com.rafalropel.ecommerceshop.model.Product
-import com.rafalropel.ecommerceshop.model.User
+import com.rafalropel.ecommerceshop.model.*
 import com.rafalropel.ecommerceshop.ui.dashboard.ProductsFragment
 import com.rafalropel.ecommerceshop.ui.home.HomeFragment
 import com.rafalropel.ecommerceshop.utils.Constants
@@ -286,6 +283,10 @@ class FireStoreClass {
                     is CartListActivity -> {
                         activity.successCartItemsList(list)
                     }
+                    is CheckoutActivity ->{
+                       activity.successCartItemsList(list)
+                    }
+
                 }
             }
             .addOnFailureListener {
@@ -293,7 +294,7 @@ class FireStoreClass {
             }
     }
 
-    fun getAllProductsList(activity: CartListActivity) {
+    fun getAllProductsList(activity: Activity) {
         mFireStore.collection(Constants.PRODUCTS)
             .get()
             .addOnSuccessListener { document ->
@@ -304,7 +305,15 @@ class FireStoreClass {
 
                     productsList.add(product)
                 }
-                activity.successProductsListFromFirestore(productsList)
+
+                when(activity){
+                    is CartListActivity ->{
+                        activity.successProductsListFromFirestore(productsList)
+                    }
+                    is CheckoutActivity ->{
+                        activity.successProductsListFromFirestore(productsList)
+                    }
+                }
 
             }
             .addOnFailureListener {
@@ -397,6 +406,18 @@ class FireStoreClass {
             .delete()
             .addOnSuccessListener {
                 activity.deleteAddressSuccess()
+            }
+            .addOnFailureListener {
+                Log.e(activity.javaClass.simpleName, "Błąd")
+            }
+    }
+
+    fun placeOrder(activity: CheckoutActivity, order: Order){
+        mFireStore.collection(Constants.ORDERS)
+            .document()
+            .set(order, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.placeOrderSuccess()
             }
             .addOnFailureListener {
                 Log.e(activity.javaClass.simpleName, "Błąd")

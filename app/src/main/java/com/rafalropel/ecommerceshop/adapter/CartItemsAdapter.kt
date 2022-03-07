@@ -13,7 +13,11 @@ import com.rafalropel.ecommerceshop.model.Cart
 import com.rafalropel.ecommerceshop.utils.Constants
 import com.rafalropel.ecommerceshop.utils.GlideLoader
 
-class CartItemsAdapter(private val context: Context, private val list: ArrayList<Cart>) :
+class CartItemsAdapter(
+    private val context: Context,
+    private val list: ArrayList<Cart>,
+    private val updateCartItems: Boolean
+) :
     RecyclerView.Adapter<CartItemsAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -34,12 +38,27 @@ class CartItemsAdapter(private val context: Context, private val list: ArrayList
             holder.ibRemoveCartItem.visibility = View.GONE
             holder.ibCartAddItem.visibility = View.GONE
 
+            if (updateCartItems) {
+                holder.ibDeleteCartItem.visibility = View.VISIBLE
+            } else {
+                holder.ibDeleteCartItem.visibility = View.GONE
+            }
+
             holder.tvCartQuantity.text = context.getString(R.string.out_of_stock)
 
             holder.tvCartQuantity.setTextColor(ContextCompat.getColor(context, R.color.ThemePink))
         } else {
-            holder.ibRemoveCartItem.visibility = View.VISIBLE
-            holder.ibCartAddItem.visibility = View.VISIBLE
+
+            if (updateCartItems) {
+                holder.ibRemoveCartItem.visibility = View.VISIBLE
+                holder.ibCartAddItem.visibility = View.VISIBLE
+                holder.ibDeleteCartItem.visibility = View.VISIBLE
+            } else {
+                holder.ibRemoveCartItem.visibility = View.GONE
+                holder.ibCartAddItem.visibility = View.GONE
+                holder.ibDeleteCartItem.visibility = View.GONE
+            }
+
 
             holder.tvCartQuantity.setTextColor(
                 ContextCompat.getColor(
@@ -72,7 +91,7 @@ class CartItemsAdapter(private val context: Context, private val list: ArrayList
         holder.ibCartAddItem.setOnClickListener {
             val cartAmount: Int = item.cart_amount.toInt()
 
-            if(cartAmount < item.amount.toInt()){
+            if (cartAmount < item.amount.toInt()) {
                 val itemHashMap = HashMap<String, Any>()
 
                 itemHashMap[Constants.CART_AMOUNT] = (cartAmount + 1).toString()
